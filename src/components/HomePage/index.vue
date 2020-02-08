@@ -10,69 +10,13 @@
       </div>
 
       <!-- 宣传模块 -->
-      <div class="card card-top">
-        <div class="banner">
-          <div class="banner-bg" />
-        </div>
-      </div>
+      <vue-banner-card></vue-banner-card>
 
       <!-- 详情模块 -->
       <vue-details-card></vue-details-card>
 
-
       <!-- 谣言模块 -->
-      <div class="card card-center">
-        <span class="card-title">辟谣播报</span>
-
-        <h2 class="update-title">努力辟谣 维护良好网络环境</h2>
-
-        <!--  -->
-
-        <div class="rumors-list" ref="firstRumor">
-
-          <div class="rumors" v-for="(item,index) in rumors1">
-            <div>
-              <img src="@/assets/rumor.jpeg" />
-            </div>
-            <div class="rumors-card">
-              谣言！
-              <div class="rumors-title">{{item.title}}</div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="rumors-list-center" ref="secondRumor">
-
-          <div class="rumors" v-for="(item,index) in rumors2">
-            <div>
-              <img src="@/assets/rumor.jpeg" />
-            </div>
-            <div class="rumors-card">
-              谣言！
-              <div class="rumors-title">{{item.title}}</div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="rumors-list" ref="thirdRumor">
-
-          <div class="rumors" v-for="(item,index) in rumors3">
-            <div>
-              <img src="@/assets/rumor.jpeg" />
-            </div>
-            <div class="rumors-card">
-              谣言！
-              <div class="rumors-title">{{item.title}}</div>
-            </div>
-          </div>
-
-        </div>
-
-
-        <!--  -->
-      </div>
+      <vue-rumors-card ref="rumors"></vue-rumors-card>
 
     </div>
 
@@ -82,6 +26,7 @@
           <div class="each-img"></div>
         </div>
       </div> -->
+
     <button v-on:click.stop="async_action()">查看store数据</button>
   </div>
   </div>
@@ -89,51 +34,39 @@
 
 <script>
   import { mapState } from 'vuex';
-  const DetailsCard = () => import('./DetailsCard/index.vue')
+  const BannerCard = () => import('./BannerCard/index.vue');
+  const DetailsCard = () => import('./DetailsCard/index.vue');
+  const RumorsCard = () => import('./RumorsCard/index.vue');
 
   export default {
     components: {
-      'vue-details-card': DetailsCard
+      'vue-banner-card': BannerCard,
+      'vue-details-card': DetailsCard,
+      'vue-rumors-card': RumorsCard
     },
     data() {
       return {
         fullscreenLoading: false,
-        // 分组数据
-        rumors1: [],
-        rumors2: [],
-        rumors3: [],
       }
     },
     methods: {
       async_action: function () {
         console.log(this)
       },
-      // 动态生成辟谣弹幕
-      renderRumors: function (record) {
-        if (record.length !== 0) {
-          record.map((item, index) => {
-            if (index < 4) {
-              this.rumors1.push(item)
-            } else if (4 <= index && index <= 6) {
-              this.rumors2.push(item)
-            } else if (index > 6) {
-              this.rumors3.push(item)
-            }
-          })
-        }
-      },
       openFullScreen1() {
         this.fullscreenLoading = true;
         clearInterval(watchPy);
+
         let watchPy = setInterval(() => {
+
           console.log("还在循环吗?")
           let { confirmedCount } = this;
           if (confirmedCount !== 0) {
-            this.fullscreenLoading = false;
-            this.$refs.firstRumor.setAttribute("class", "rumors-list rumors-animation-barrage");
-            this.$refs.secondRumor.setAttribute("class", "rumors-list-center rumors-animation-centerage");
-            this.$refs.thirdRumor.setAttribute("class", "rumors-list rumors-animation-barrage");
             clearInterval(watchPy);
+            this.fullscreenLoading = false;
+            this.$refs.rumors.$refs.firstRumor.setAttribute("class", "rumors-list rumors-animation-barrage");
+            this.$refs.rumors.$refs.secondRumor.setAttribute("class", "rumors-list-center rumors-animation-centerage");
+            this.$refs.rumors.$refs.thirdRumor.setAttribute("class", "rumors-list rumors-animation-barrage");
           }
         }, 1000);
       }
@@ -152,11 +85,6 @@
     computed: {
       ...mapState('HomePage', ['updateTime']), // 数据更新时间
       ...mapState('HomePage', ['confirmedCount']), // 确诊人数
-    },
-    watch: {
-      '$store.state.HomePage.rumors': function (newVal, oldVal) {
-        this.renderRumors(newVal);
-      }
     },
   };
 </script>
@@ -187,9 +115,6 @@
     z-index: 1;
     overflow: hidden;
     margin-bottom: 25px;
-
-    /* 暂定 */
-    /* height: 300px; */
   }
 
   .card-title {
@@ -212,59 +137,7 @@
   }
 
 
-  .rumors-list {
-    display: flex;
-    width: fit-content;
-    margin-bottom: 15px;
-
-  }
-
-  .rumors-list-center {
-    display: flex;
-    width: fit-content;
-    margin-bottom: 15px;
-    -webkit-transform: translateX(-10%);
-  }
-
-  /* rumors动画 */
-  .rumors-animation-barrage {
-    -webkit-animation: barrage 100s linear infinite;
-    /* -webkit-animation-delay: 1s; */
-  }
-
-  .rumors-animation-centerage {
-    -webkit-animation: centerage 100s linear infinite;
-    /* -webkit-animation-delay: 1s; */
-  }
-
-  .rumors {
-    height: 58px;
-    display: flex;
-    margin-right: 10px;
-    color: #666;
-    border: 1px solid #ccced4;
-    border-radius: 10px;
-  }
-
-  .rumors img {
-    width: 70px;
-    height: 58px;
-    margin-right: 10px;
-    border-top-left-radius: 9px;
-    border-bottom-left-radius: 9px;
-  }
-
-  .rumors-card {
-    width: max-content;
-    padding-top: 5px;
-  }
-
-  .rumors-title {
-    font-size: 0.8rem;
-    margin-top: 0.3rem;
-    color: #3a36fb
-  }
-
+  
 
 
   /*  */
@@ -304,10 +177,8 @@
   }
 
   .banner-card {
-    /* border: solid 1px #5864f7; */
     color: #fff;
     width: 50%;
-    /* margin: 0.3rem; */
     padding: 0.5rem;
     border-radius: 8px;
     box-shadow: 2px 5px 20px #ccc5c5;

@@ -1,5 +1,4 @@
 <template>
-
     <!-- 详情模块 -->
     <div style="margin-bottom: 22px;">
         <div class="banner-content">
