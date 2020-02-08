@@ -1,5 +1,5 @@
 <template>
-    <div class="card card-center">
+    <div class="card-center-before" style="margin-top:0px" v-on:click.stop="expendCard()" ref="cardCenter">
         <span class="card-title">辟谣播报</span>
 
         <h2 class="update-title">努力辟谣 维护良好网络环境</h2>
@@ -53,7 +53,7 @@
 
 <script>
     import { mapState } from 'vuex';
-
+    import { getOsInfo, slideTo, judgeOS } from '@/tools/smart.js'
     export default {
         data() {
             return {
@@ -61,9 +61,39 @@
                 rumors1: [],
                 rumors2: [],
                 rumors3: [],
+                '@touchmove.prevent': true,
             }
         },
         methods: {
+            doW(record) {
+                console.log(record)
+            },
+            // 展开卡片
+            expendCard: function () {
+                // this.$refs.cardCenter.setAttribute(`${'@touchmove.prevent.stop'}`, null);
+
+                // if (!judgeOS()) {
+                let incrHeight = parseInt(this.$refs.cardCenter.offsetTop);
+                let nowHeight = parseInt(this.$refs.cardCenter.style.marginTop);
+                let totalHeight = nowHeight - incrHeight;
+                // console.log("距离顶部:", incrHeight)
+                // console.log("目前高度:", nowHeight)
+                // console.log("total:", totalHeight);
+
+                // 过渡动画
+                slideTo(0)
+                // 复原div
+                if (incrHeight === 0) {
+                    this.$refs.cardCenter.style.marginTop = '-' + incrHeight + 'px';
+                    this.$refs.cardCenter.style.marginBottom = 25 - incrHeight + 'px';
+                    this.$refs.cardCenter.setAttribute('class', 'card-center-before');
+                } else {
+                    this.$refs.cardCenter.style.marginTop = totalHeight + 'px';
+                    this.$refs.cardCenter.style.marginBottom = 25 + incrHeight + 'px';
+                    this.$refs.cardCenter.setAttribute('class', 'card-center-after');
+                }
+                // } 
+            },
             // 动态生成辟谣弹幕
             renderRumors: function (record) {
                 if (record.length !== 0) {
@@ -89,10 +119,6 @@
 </script>
 
 <style>
-    .card-center {
-        background-color: #fff;
-    }
-
     .card-title {
         color: #989898;
         font-size: 1.2rem;
@@ -150,5 +176,40 @@
         font-size: 0.8rem;
         margin-top: 0.3rem;
         color: #3a36fb
+    }
+
+    /* expend的效果 前后 */
+    .card-center-before-margin {
+        height: auto;
+    }
+
+    .card-center-before {
+        position: relative;
+        padding: .3rem .8rem;
+        border-radius: 15px;
+        box-shadow: 2px 5px 20px #ccc5c5;
+        overflow: hidden;
+        height: auto;
+        padding-bottom: 5px;
+        z-index: 222;
+        margin-bottom: 25px;
+        background-color: #fff;
+    }
+
+    .card-center-after {
+        overflow-y: hidden;
+        position: relative;
+        padding: .3rem .8rem;
+        border-radius: 0px;
+        box-shadow: 2px 5px 20px #ccc5c5;
+        overflow: hidden;
+        height: 100vh;
+        margin-left: -1.2rem;
+        margin-right: -1.2rem;
+        z-index: 222;
+        background-color: #ffffff;
+        touch-action: none;
+        overflow: hidden;
+        /* transform: matrix(1, 0, 0, 1, 0, -300); */
     }
 </style>

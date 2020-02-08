@@ -15,6 +15,8 @@
       <!-- 谣言模块 -->
       <vue-rumors-card ref="rumors"></vue-rumors-card>
 
+      <!-- <vue-details-card style="position:relative;z-index:222;"></vue-details-card> -->
+
     </div>
 
     <!-- 手动滚动 -->
@@ -24,7 +26,7 @@
         </div>
       </div> -->
 
-    <button v-on:click.stop="async_action()">查看store数据</button>
+    <button v-on:click.stop="async_action()" ref="haha">查看store数据</button>
   </div>
   </div>
 </template>
@@ -50,7 +52,7 @@
     },
     methods: {
       async_action: function () {
-        console.log(this)
+        // console.log(this.$refs.haha.scrollTop);
       },
       openFullScreen1() {
         this.fullscreenLoading = true;
@@ -95,8 +97,6 @@
     border-radius: 15px;
     box-shadow: 2px 5px 20px #ccc5c5;
     padding-bottom: 5px;
-    transition-duration: 0ms;
-    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg);
     z-index: 1;
     overflow: hidden;
     margin-bottom: 25px;
