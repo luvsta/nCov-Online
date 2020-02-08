@@ -151,6 +151,7 @@
     },
     computed: {
       ...mapState('HomePage', ['updateTime']), // 数据更新时间
+      ...mapState('HomePage', ['confirmedCount']), // 确诊人数
     },
     watch: {
       '$store.state.HomePage.rumors': function (newVal, oldVal) {
