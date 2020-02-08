@@ -4,6 +4,7 @@
 数据来源：https://github.com/BlankerL/DXY-2019-nCoV-Crawler  （ 2019新型冠状病毒疫情实时爬虫 
 
 项目预览：http://120.78.132.10:8099
+![https://github.com/luvsta/nCov-Online/blob/master/src/assets/ScreenShot.jpg]
 
 ## 下载运行
 
