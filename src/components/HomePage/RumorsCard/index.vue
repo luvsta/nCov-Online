@@ -89,6 +89,16 @@
 </script>
 
 <style>
+    .card-center {
+        background-color: #fff;
+    }
+
+    .card-title {
+        color: #989898;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
     .rumors-list {
         display: flex;
         width: fit-content;

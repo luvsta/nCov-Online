@@ -6,3 +6,14 @@
         </div>
     </div>
 </template>
+
+<style>
+    .card-top {
+        background-color: #fda540;
+        background-color: #2f4af5;
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+    }
+</style>

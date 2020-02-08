@@ -85,3 +85,48 @@
     }
 
 </script>
+
+<style>
+    .banner-content {
+        display: flex;
+        margin-bottom: 3px;
+    }
+
+    .banner-card {
+        color: #fff;
+        width: 50%;
+        padding: 0.5rem;
+        border-radius: 8px;
+        box-shadow: 2px 5px 20px #ccc5c5;
+        margin-bottom: 0.6rem;
+        background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+    }
+
+    .banner-card:first-child {
+        margin-right: 0.6rem;
+    }
+
+    .banner-card-count {
+        letter-spacing: 1px;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .banner-card-count-title {
+        font-size: 0.9rem;
+    }
+
+    .banner-card-flex {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center
+    }
+
+    .banner-card-incr {
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0;
+        margin-top: 5px;
+        margin-left: 10px;
+    }
+</style>
