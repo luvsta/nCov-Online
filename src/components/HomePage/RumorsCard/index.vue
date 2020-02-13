@@ -70,29 +70,27 @@
             },
             // 展开卡片
             expendCard: function () {
-                // this.$refs.cardCenter.setAttribute(`${'@touchmove.prevent.stop'}`, null);
+                if (!judgeOS()) {
+                    let incrHeight = parseInt(this.$refs.cardCenter.offsetTop);
+                    let nowHeight = parseInt(this.$refs.cardCenter.style.marginTop);
+                    let totalHeight = nowHeight - incrHeight;
+                    // console.log("距离顶部:", incrHeight)
+                    // console.log("目前高度:", nowHeight)
+                    // console.log("total:", totalHeight);
 
-                // if (!judgeOS()) {
-                let incrHeight = parseInt(this.$refs.cardCenter.offsetTop);
-                let nowHeight = parseInt(this.$refs.cardCenter.style.marginTop);
-                let totalHeight = nowHeight - incrHeight;
-                // console.log("距离顶部:", incrHeight)
-                // console.log("目前高度:", nowHeight)
-                // console.log("total:", totalHeight);
-
-                // 过渡动画
-                slideTo(0)
-                // 复原div
-                if (incrHeight === 0) {
-                    this.$refs.cardCenter.style.marginTop = '-' + incrHeight + 'px';
-                    this.$refs.cardCenter.style.marginBottom = 25 - incrHeight + 'px';
-                    this.$refs.cardCenter.setAttribute('class', 'card-center-before');
-                } else {
-                    this.$refs.cardCenter.style.marginTop = totalHeight + 'px';
-                    this.$refs.cardCenter.style.marginBottom = 25 + incrHeight + 'px';
-                    this.$refs.cardCenter.setAttribute('class', 'card-center-after');
+                    // 过渡动画
+                    slideTo(0)
+                    // 复原div
+                    if (incrHeight === 0) {
+                        this.$refs.cardCenter.style.marginTop = '-' + incrHeight + 'px';
+                        this.$refs.cardCenter.style.marginBottom = 25 - incrHeight + 'px';
+                        this.$refs.cardCenter.setAttribute('class', 'card-center-before');
+                    } else {
+                        this.$refs.cardCenter.style.marginTop = totalHeight + 'px';
+                        this.$refs.cardCenter.style.marginBottom = 25 + incrHeight + 'px';
+                        this.$refs.cardCenter.setAttribute('class', 'card-center-after');
+                    }
                 }
-                // } 
             },
             // 动态生成辟谣弹幕
             renderRumors: function (record) {

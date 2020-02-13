@@ -3,15 +3,16 @@ import { get_all_data, get_all_rumors } from './service.js';
 const state = {
     updateTime: " ",
     rumors: [],
-    confirmedCount: 0,
-    suspectedCount: 0,
-    deadCount: 0,
-    curedCount: 0,
+    currentConfirmedCount: 0,  // 确诊
+    suspectedCount: 0, // 疑似
+    deadCount: 0,   // 死亡
+    curedCount: 0, // 治愈
+    seriousCount: 0,// 重症
+    confirmedCount: 0,// 累计确证
     confirmedIncr: 0,
     suspectedIncr: 0,
     deadIncr: 0,
     curedIncr: 0,
-
 
     infectSource: "该字段已替换为说明2",
     passWay: "该字段已替换为说明3",
@@ -26,9 +27,6 @@ const state = {
     ],
     summary: "",
     countRemark: "",
-    seriousCount: 3859,
-
-    seriousIncr: 640,
     virus: "该字段已替换为说明1",
     remark1: "易感人群：人群普遍易感。老年人及有基础疾病者感染后病情较重，儿童及婴幼儿也有发病",
     remark2: "潜伏期：一般为 3～7 天，最长不超过 14 天，潜伏期内可能存在传染性，其中无症状病例传染性非常罕见",
@@ -65,10 +63,12 @@ const actions = {
 const mutations = {
     get_all_data_success(state, payload) {
         state.updateTime = new Date(parseInt(payload.updateTime)).toLocaleString().replace(/:\d{1,2}$/, ' ');
-        state.confirmedCount = payload.confirmedCount;
+        state.currentConfirmedCount = payload.currentConfirmedCount;
         state.suspectedCount = payload.suspectedCount;
         state.deadCount = payload.deadCount;
         state.curedCount = payload.curedCount;
+        state.confirmedCount = payload.confirmedCount;
+        state.seriousCount = payload.seriousCount;
         state.confirmedIncr = payload.confirmedIncr;
         state.suspectedIncr = payload.suspectedIncr;
         state.deadIncr = payload.deadIncr;

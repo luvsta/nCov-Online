@@ -9,12 +9,11 @@ export default new Router({
     {
       path: '/',
       name: 'HomePage',
-      component: resolve => (require(["../components/HomePage/index.vue"], resolve))
+      component: resolve => (require(["../components/HomePage/index.vue"], resolve).default)
     }, {
       path: '/ex',
       name: 'expent',
       component: resolve => (require(["../components/expentd.vue"], resolve))
     }
-
   ]
 })
